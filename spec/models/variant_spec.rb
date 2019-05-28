@@ -1,15 +1,16 @@
 # == Schema Information
 #
-# Table name: products
+# Table name: variants
 #
-#  id       :integer          not null, primary key
-#  name     :string           not null
-#  status   :integer          default("unavailable"), not null
-#  brand_id :integer
+#  id              :integer          not null, primary key
+#  units           :integer          default(0), not null
+#  unit_of_measure :string
+#  image           :string
+#  product_id      :integer
 #
 # Indexes
 #
-#  index_products_on_brand_id  (brand_id)
+#  index_variants_on_product_id  (product_id)
 #
 
 require 'rails_helper'

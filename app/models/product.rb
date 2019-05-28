@@ -2,20 +2,23 @@
 #
 # Table name: products
 #
-#  id       :integer          not null, primary key
-#  name     :string           not null
-#  status   :integer          default("unavailable"), not null
-#  brand_id :integer
+#  id          :integer          not null, primary key
+#  name        :string           not null
+#  status      :integer          default("unavailable"), not null
+#  brand_id    :integer
+#  category_id :integer
 #
 # Indexes
 #
-#  index_products_on_brand_id  (brand_id)
+#  index_products_on_brand_id     (brand_id)
+#  index_products_on_category_id  (category_id)
 #
 
 class Product < ApplicationRecord
   enum status: %w[unavailable available].freeze
 
   belongs_to :brand
+  belongs_to :category
   has_many :variants, dependent: :destroy
 
   validates :name, :status, presence: true
