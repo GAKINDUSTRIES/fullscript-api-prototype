@@ -33,6 +33,10 @@
 require 'rails_helper'
 
 describe User do
+  describe 'associations' do
+    it { is_expected.to have_many(:rates) }
+    it { is_expected.to have_many(:products) }
+  end
   describe 'validations' do
     subject { build :user }
     it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider) }

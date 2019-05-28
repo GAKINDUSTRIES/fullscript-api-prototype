@@ -2,11 +2,13 @@
 #
 # Table name: products
 #
-#  id          :integer          not null, primary key
-#  name        :string           not null
-#  status      :integer          default("unavailable"), not null
-#  brand_id    :integer
-#  category_id :integer
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  status       :integer          default("unavailable"), not null
+#  brand_id     :integer
+#  category_id  :integer
+#  current_rate :float            default(0.0)
+#  rates_count  :integer
 #
 # Indexes
 #
@@ -20,6 +22,8 @@ class Product < ApplicationRecord
   belongs_to :brand
   belongs_to :category
   has_many :variants, dependent: :destroy
+  has_many :rates, dependent: :destroy
+  has_many :users, through: :rates
 
   validates :name, :status, presence: true
 
@@ -31,6 +35,11 @@ class Product < ApplicationRecord
 
   def check_status
     variants.with_units.count.zero? ? unavailable! : available!
+  end
+
+  def update_rate(new_rate)
+    self.current_rate = 0 if current_rate.nil?
+    update! current_rate: (current_rate * (rates_count - 1) + new_rate) / rates_count
   end
 
   private

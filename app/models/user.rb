@@ -37,6 +37,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :rates, dependent: :destroy
+  has_many :products, through: :rates
+
   validates :uid, uniqueness: { scope: :provider }
 
   before_validation :init_uid

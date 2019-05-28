@@ -2,11 +2,13 @@
 #
 # Table name: products
 #
-#  id          :integer          not null, primary key
-#  name        :string           not null
-#  status      :integer          default("unavailable"), not null
-#  brand_id    :integer
-#  category_id :integer
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  status       :integer          default("unavailable"), not null
+#  brand_id     :integer
+#  category_id  :integer
+#  current_rate :float            default(0.0)
+#  rates_count  :integer
 #
 # Indexes
 #
@@ -21,6 +23,8 @@ describe Product do
     it { is_expected.to belong_to(:brand) }
     it { is_expected.to belong_to(:category) }
     it { is_expected.to have_many(:variants).dependent(:destroy) }
+    it { is_expected.to have_many(:rates).dependent(:destroy) }
+    it { is_expected.to have_many(:users) }
   end
 
   describe 'validations' do
@@ -51,6 +55,17 @@ describe Product do
         expect { brand.update! status: new_status }
           .not_to change { brand.prefix }
       end
+    end
+  end
+
+  describe '.update_product_rate' do
+    let(:product) { create :product }
+
+    before { 2.times { create :rate, value: 3.5, product: product } }
+
+    it 'updates the product rate correctly' do
+      create :rate, value: 5, product: product
+      expect(product.current_rate).to eq 4
     end
   end
 end
