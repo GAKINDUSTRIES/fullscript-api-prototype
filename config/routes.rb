@@ -13,7 +13,9 @@ Rails.application.routes.draw do
           get :profile
         end
 
-        resources :products, only: :index
+        resources :products, only: :index do
+          resource :rate, only: :create
+        end
       end
     end
   end
