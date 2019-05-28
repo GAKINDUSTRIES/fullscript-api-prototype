@@ -13,9 +13,10 @@
 #
 
 FactoryBot.define do
-  factory :product do
-    name   { Faker::Name.unique.name }
-    status { 'available' }
-    brand  { create :brand }
+  factory :variant do
+    units           { Random.rand(0..99) }
+    unit_of_measure { 'capsules' }
+    image           { Rails.root.join('spec/support/blank.jpg').open }
+    product         { create :product }
   end
 end

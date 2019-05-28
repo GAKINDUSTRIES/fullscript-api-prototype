@@ -19,9 +19,7 @@ class Brand < ApplicationRecord
   validates :prefix, :name, uniqueness: true
 
   def check_status
-    zero_products = products.available.count.zero?
-    available! unless zero_products
-    unavailable! if zero_products
+    products.available.count.zero? ? unavailable! : available!
   end
 
   private

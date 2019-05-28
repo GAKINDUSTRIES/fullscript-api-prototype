@@ -16,14 +16,19 @@ class Product < ApplicationRecord
   enum status: %w[unavailable available].freeze
 
   belongs_to :brand
+  has_many :variants, dependent: :destroy
 
   validates :name, :status, presence: true
 
   after_create :brand_status_callback
-  after_update :brand_status_callback, if: :brand_changed?
+  after_update :brand_status_callback, if: :brand_id_changed? || :status_changed?
   after_destroy :brand_status_callback
 
   scope :available, -> { where(status: :available) }
+
+  def check_status
+    variants.with_units.count.zero? ? unavailable! : available!
+  end
 
   private
 
