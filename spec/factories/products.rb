@@ -9,8 +9,9 @@
 #
 
 FactoryBot.define do
-  factory :brand do
+  factory :product do
     name   { Faker::Name.unique.name }
-    status { 'unavailable' }
+    status { 'available' }
+    brand  { create :brand }
   end
 end

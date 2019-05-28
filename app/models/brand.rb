@@ -4,7 +4,7 @@
 #
 #  id     :integer          not null, primary key
 #  name   :string           not null
-#  status :integer          default(0), not null
+#  status :integer          default("unavailable"), not null
 #  prefix :integer          not null
 #
 
@@ -13,8 +13,16 @@ class Brand < ApplicationRecord
 
   before_validation :assign_prefix, if: :name_changed?
 
+  has_many :products, dependent: :destroy
+
   validates :name, :status, :prefix, presence: true
   validates :prefix, :name, uniqueness: true
+
+  def check_status
+    zero_products = products.available.count.zero?
+    available! unless zero_products
+    unavailable! if zero_products
+  end
 
   private
 
