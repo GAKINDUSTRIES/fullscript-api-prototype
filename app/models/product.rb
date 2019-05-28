@@ -9,6 +9,7 @@
 #  category_id  :integer
 #  current_rate :float            default(0.0)
 #  rates_count  :integer
+#  image        :string
 #
 # Indexes
 #
@@ -17,6 +18,10 @@
 #
 
 class Product < ApplicationRecord
+  include Uploadable
+
+  mount_base64_uploader :image, ImageUploader
+
   enum status: %w[unavailable available].freeze
 
   belongs_to :brand
@@ -30,6 +35,15 @@ class Product < ApplicationRecord
   after_create :brand_status_callback
   after_update :brand_status_callback, if: :brand_id_changed? || :status_changed?
   after_destroy :brand_status_callback
+
+  scope :rated_by, (lambda do |user_id|
+    user_rates = Rate.where(user_id: user_id).to_sql
+
+    select('products.*', 'r.id as rate_id', 'r.value as rate_value')
+      .joins("LEFT JOIN (#{user_rates}) AS r ON products.id = r.product_id")
+      .available
+      .order(id: :desc)
+  end)
 
   scope :available, -> { where(status: :available) }
 

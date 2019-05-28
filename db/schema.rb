@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_061907) do
+ActiveRecord::Schema.define(version: 2019_05_28_194403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_061907) do
   create_table "brands", force: :cascade do |t|
     t.string "name", null: false
     t.integer "status", default: 0, null: false
-    t.integer "prefix", null: false
+    t.string "prefix", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_05_28_061907) do
     t.bigint "category_id"
     t.float "current_rate", default: 0.0
     t.integer "rates_count"
+    t.string "image"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["category_id"], name: "index_products_on_category_id"
   end

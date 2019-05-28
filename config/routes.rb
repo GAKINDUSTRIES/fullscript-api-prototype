@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         resource :user, only: %i[update show] do
           get :profile
         end
+
+        resources :products, only: :index
       end
     end
   end

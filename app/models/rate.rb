@@ -19,6 +19,8 @@ class Rate < ApplicationRecord
   belongs_to :user
 
   validates :value, presence: true, inclusion: { in: 0..5 }
+  validates :user,
+            uniqueness: { scope: :product, message: 'A product can only be rated once' }
 
   after_create :update_product_rate
 

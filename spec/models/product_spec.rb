@@ -9,6 +9,7 @@
 #  category_id  :integer
 #  current_rate :float            default(0.0)
 #  rates_count  :integer
+#  image        :string
 #
 # Indexes
 #

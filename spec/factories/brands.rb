@@ -5,7 +5,7 @@
 #  id     :integer          not null, primary key
 #  name   :string           not null
 #  status :integer          default("unavailable"), not null
-#  prefix :integer          not null
+#  prefix :string           not null
 #
 
 FactoryBot.define do

@@ -9,6 +9,7 @@
 #  category_id  :integer
 #  current_rate :float            default(0.0)
 #  rates_count  :integer
+#  image        :string
 #
 # Indexes
 #
@@ -21,6 +22,7 @@ FactoryBot.define do
     name      { Faker::Name.unique.name }
     status    { 'available' }
     brand     { create :brand }
+    image     { Rails.root.join('spec/support/blank.jpg').open }
     category  { create :category }
   end
 end
