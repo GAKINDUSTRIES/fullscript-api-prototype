@@ -24,6 +24,7 @@ gem 'pry-rails', '~> 0.3.6'
 gem 'puma', '~> 3.0'
 gem 'rack-cors', '~> 0.4.0'
 gem 'sendgrid', '~> 1.2.4'
+gem 'jquery-rails', '~> 4.3.3'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -32,8 +33,8 @@ gem 'sendgrid', '~> 1.2.4'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
   gem 'bullet', '~> 5.7.5'
+group :development, :test do
   gem 'factory_bot_rails', '~> 4.8.2'
   gem 'faker', '~> 1.7.3'
   gem 'pry-byebug', '~> 3.3.0', platform: :mri
