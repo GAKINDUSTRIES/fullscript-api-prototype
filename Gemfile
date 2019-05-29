@@ -4,7 +4,6 @@ ruby '2.4.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 
-gem 'aws-sdk-s3', '~> 1', require: false
 gem 'bootsnap', '~> 1.3.0'
 gem 'carrierwave', '~> 0.11.2'
 gem 'carrierwave-base64', '~> 2.3.4'
