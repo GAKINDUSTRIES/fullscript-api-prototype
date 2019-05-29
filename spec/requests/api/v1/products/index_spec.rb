@@ -23,11 +23,11 @@ describe 'GET api/v1/products', type: :request do
   end
 
   it 'returns all the available products' do
-    expect(json[:products].map { |e| e[:product][:id] }).to match_array available_products.map(&:id)
+    expect(json[:products].map { |e| e[:id] }).to match_array available_products.map(&:id)
   end
 
   it 'returns all the id of the rated products' do
-    expect(json[:products].map { |e| e[:product][:rate_id] }.compact)
+    expect(json[:products].map { |e| e[:rate_id] }.compact)
       .to match_array @rated_available_products.map(&:id)
   end
 end
