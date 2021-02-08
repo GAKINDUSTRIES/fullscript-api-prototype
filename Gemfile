@@ -5,7 +5,7 @@ ruby '2.4.1'
 gem 'rails', '~> 5.2.2'
 
 gem 'bootsnap', '~> 1.3.0'
-gem 'carrierwave', '~> 0.11.2'
+gem 'carrierwave', '~> 1.3.2'
 gem 'carrierwave-base64', '~> 2.3.4'
 gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'devise', '~> 4.4.3'
